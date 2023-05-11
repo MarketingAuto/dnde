@@ -30,7 +30,6 @@ export const ComponentBank = () => {
         <Spacer />
         <Divider />
         <Html />
-        <Social />
       </div>
     </Scrollbars>
   );

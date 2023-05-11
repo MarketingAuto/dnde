@@ -99,10 +99,7 @@ const EditPage = () => {
               style={{ borderBottom: '1px solid #e8e8e8' }}
               extra={[
                 <>
-                  <SendTestMail editorRef={ref} key="4" />
-                  {/* <Button key="5" onClick={copyPreviewImage}>
-                Copy Preview Image
-              </Button> */}
+                 
                   <Button key="2" onClick={copyHTMLAsClipBoard}>
                     Copy as html
                   </Button>
