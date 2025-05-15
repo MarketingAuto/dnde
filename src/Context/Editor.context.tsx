@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { createContext, FC, useState } from 'react';
+import { createContext, FC, useState, PropsWithChildren } from 'react';
 import { FONTS_CONFIG } from '../Components/Mods/FontConfig';
 import { HEADSTYLE } from '../Components/Mods/HeadStyle';
 
@@ -38,9 +38,8 @@ const initialState = {
   attributes: {},
 };
 
-export const EDContext: FC = (props) => {
+export const EDContext: FC<PropsWithChildren> = (props) => {
   const [mjmlJson, setMjmlJson] = useState<any>(_.cloneDeep(initialState));
-
   const [attributes, setAttributes] = useState<any>({});
 
   return (

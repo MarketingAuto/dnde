@@ -1,6 +1,6 @@
-import { Button, Col, Row, Modal, Layout, PageHeader, Input, Form, message } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import { Prompt, useParams } from 'react-router-dom';
+import { Button, Col, Row, Modal, Layout, Input, Form, message, Space, Typography } from 'antd';
+import { useEffect, useRef, useState, useCallback, useContext } from 'react';
+import { useParams, UNSAFE_NavigationContext, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLazyGetTemplateQuery, useSendMailMutation } from '../../Api/api';
 import { success } from '../../Components/Messages';
@@ -9,14 +9,48 @@ import { UNDOREDO } from '../../Utils/undoRedo';
 import Editor from '../Editor/';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { generatePreview } from '../../Utils/previewGenerator';
+import { PageHeader } from '@ant-design/pro-components';
+import type { History } from 'history';
 
 const { Content } = Layout;
 
 const LOADING_KEY = 'loading';
 
+// Custom hook to replicate Prompt behavior in React Router v6 (using UNSAFE_NavigationContext)
+function usePrompt(message: string, when: boolean) {
+  const navigator = useContext(UNSAFE_NavigationContext).navigator as History;
+  const navigate = useNavigate();
+  const unblockRef = useRef<null | (() => void)>(null);
+
+  const blocker = useCallback((tx: any) => {
+    if (window.confirm(message)) {
+      unblockRef.current && unblockRef.current();
+      tx.retry();
+    }
+    // else do nothing, navigation is blocked
+  }, [message]);
+
+  useEffect(() => {
+    if (!when) {
+      if (unblockRef.current) {
+        unblockRef.current();
+        unblockRef.current = null;
+      }
+      return;
+    }
+    unblockRef.current = navigator.block(blocker);
+    return () => {
+      if (unblockRef.current) {
+        unblockRef.current();
+        unblockRef.current = null;
+      }
+    };
+  }, [navigator, blocker, when]);
+}
+
 const EditPage = () => {
   const ref = useRef<any>(null);
-  const { templateId }: { templateId: string | undefined } = useParams();
+  const { templateId } = useParams();
   const [trigger, { data, isError, isLoading, isSuccess }] = useLazyGetTemplateQuery();
 
   useEffect(() => {
@@ -77,13 +111,12 @@ const EditPage = () => {
     }
   };
 
+  // Block navigation if there are unsaved changes
+  usePrompt('Are you sure you want to leave, your changes will be lost', UNDOREDO.undo.length > 1 || UNDOREDO.redo.length > 1);
+
   return (
     <div style={{ flex: '1', display: 'flex', width: '100%', height: '100%' }}>
       <Row style={{ height: '100%', width: '100%' }} justify="center">
-        <Prompt
-          when={UNDOREDO.undo.length > 1 || UNDOREDO.redo.length > 1}
-          message={() => 'Are you sure you want to leave, your changes will be lost'}
-        />
         <Col lg={24} xl={0}>
           <div style={{ textAlign: 'center', padding: '40px', paddingTop: '10%' }}>
             <h3>Sorry, You need a device with a larger screen to perform editing, atleast '{'>'}=1200px'</h3>
@@ -92,23 +125,17 @@ const EditPage = () => {
         <Col xs={0} xl={24}>
           <Layout style={{ height: '100%' }}>
             <PageHeader
-              ghost={false}
               onBack={() => window.history.back()}
               title="dnde"
-              subTitle=""
-              style={{ borderBottom: '1px solid #e8e8e8' }}
               extra={[
-                <>
-                 
-                  <Button key="2" onClick={copyHTMLAsClipBoard}>
-                    Copy as html
-                  </Button>
-                  <Button key="1" onClick={copyJsonInClipBoard}>
-                    Copy as json
-                  </Button>
-                </>,
+                <Button key="2" onClick={copyHTMLAsClipBoard} style={{ marginRight: 8 }}>
+                  Copy as html
+                </Button>,
+                <Button key="1" onClick={copyJsonInClipBoard}>
+                  Copy as json
+                </Button>
               ]}
-            ></PageHeader>
+            />
             <Content>
               <Editor ref={ref} />
             </Content>

@@ -1,8 +1,8 @@
-import { createContext, FC, useRef, useState } from 'react';
+import { createContext, FC, useRef, useState, PropsWithChildren } from 'react';
 
 export const CkeditorContext = createContext<any>(null);
 
-export const Ckeditor: FC = (props) => {
+export const Ckeditor: FC<PropsWithChildren> = (props) => {
   const editorRef = useRef(null);
   const ckeditorInstance = useRef(null);
   const [editorActive, setActive] = useState(false);

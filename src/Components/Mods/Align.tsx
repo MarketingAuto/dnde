@@ -51,7 +51,7 @@ export const Align = () => {
             return (
               <Col key={key}>
                 <Tooltip title={title}>
-                  <Button onClick={() => onClick(prop)} type="ghost" icon={component} />
+                  <Button onClick={() => onClick(prop)} type="text" icon={component} />
                 </Tooltip>
               </Col>
             );

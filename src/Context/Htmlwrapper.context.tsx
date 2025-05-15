@@ -1,9 +1,9 @@
-import { createContext, FC, memo, useContext, useEffect, useRef, useState } from 'react';
+import { createContext, FC, memo, useContext, useEffect, useRef, useState, PropsWithChildren, ReactNode } from 'react';
 import { logger } from '../Utils/logger';
 
 export const HtmlContext = createContext<any>(null);
 
-export const HtmlContextProvider: FC = memo((props) => {
+export const HtmlContextProvider: FC<PropsWithChildren> = memo((props) => {
   const [activeHover, setActiveHover] = useState<any>();
 
   const [active, setActive] = useState<any>();
@@ -17,6 +17,10 @@ export const HtmlContextProvider: FC = memo((props) => {
     logger.log('getId', id);
   };
 
+  useEffect(() => {
+    logger.log('uiContextRerendering', ref.current++);
+  });
+
   return (
     <HtmlContext.Provider
       value={{
@@ -29,7 +33,6 @@ export const HtmlContextProvider: FC = memo((props) => {
         getId,
       }}
     >
-      <div>{<>{logger.log('uiContextRerendering', ref.current++)} </>}</div>
       {props.children}
     </HtmlContext.Provider>
   );

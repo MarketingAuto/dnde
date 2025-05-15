@@ -39,7 +39,7 @@ export const VerticalAlign = ({ activePath }: VerticalAlignProps) => {
       <Col>
         <Row justify="space-between" gutter={[16, 0]}>
           <Tooltip title="Top">
-            <Button onClick={() => onClick('top')} type="ghost" icon={<VerticalAlignTopOutlined />} />
+            <Button onClick={() => onClick('top')} type="text" icon={<VerticalAlignTopOutlined />} />
           </Tooltip>
 
           <Col>
@@ -47,13 +47,13 @@ export const VerticalAlign = ({ activePath }: VerticalAlignProps) => {
               placement="left"
               title="Middle :Note: all columns in section must be set to middle, for this to work."
             >
-              <Button onClick={() => onClick('middle')} type="ghost" icon={<VerticalAlignMiddleOutlined />} />
+              <Button onClick={() => onClick('middle')} type="text" icon={<VerticalAlignMiddleOutlined />} />
             </Tooltip>
           </Col>
 
           <Col>
             <Tooltip title="Bottom">
-              <Button onClick={() => onClick('bottom')} type="ghost" icon={<VerticalAlignBottomOutlined />} />
+              <Button onClick={() => onClick('bottom')} type="text" icon={<VerticalAlignBottomOutlined />} />
             </Tooltip>
           </Col>
         </Row>

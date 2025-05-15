@@ -1,16 +1,15 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { List } from './List';
 import { EditPage } from './EditPage';
 
 const Routing = () => {
   return (
-    <Switch>
-      <Route exact path={['', '/list']} component={List} />
-      <Route path="/template/:templateId" component={EditPage} />
-      <Route path="*">
-        <Redirect to="/" />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route path="/" element={<List />} />
+      <Route path="/list" element={<List />} />
+      <Route path="/template/:templateId" element={<EditPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 };
 

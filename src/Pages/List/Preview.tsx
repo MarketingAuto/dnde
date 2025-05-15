@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import styled from 'styled-components';
 import { PlusOutlined } from '@ant-design/icons';
 import newTemplate from '../../Assets/Images/new_template.svg';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 
 interface PreviewProps {
@@ -75,10 +75,10 @@ const PreviewContainer = styled.div`
 `;
 
 export const NewItem = () => {
-  const history = useHistory();
-  const { path } = useRouteMatch();
+  const navigate = useNavigate();
+  const match = useMatch('/list/*');
   const onClick = () => {
-    history.push(`${path}/template/new`);
+    navigate(`${match?.pathname}/template/new`);
   };
 
   return (
@@ -101,10 +101,16 @@ export const NewItem = () => {
 };
 
 const Preview = ({ image, id, skeleton }: PreviewProps) => {
-  const history = useHistory();
-  const { path } = useRouteMatch();
+  const navigate = useNavigate();
+  const match = useMatch('/list/*');
   const onClick = () => {
-    history.push(`${path}/template/${id}`);
+    navigate(`${match?.pathname}/template/${id}`);
+  };
+  const handleClick = () => {
+    navigate('/edit/' + id);
+  };
+  const handleBack = () => {
+    navigate(-1);
   };
   return (
     <PreviewContainer>

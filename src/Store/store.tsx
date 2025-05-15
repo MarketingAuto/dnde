@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import { DndeApi } from '../Api/api';
 import { templateListReducer } from './list';
 
@@ -13,6 +13,6 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const StoreProvider: FC = ({ children }) => {
+export const StoreProvider: FC<PropsWithChildren> = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;
 };

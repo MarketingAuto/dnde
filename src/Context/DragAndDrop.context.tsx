@@ -1,4 +1,4 @@
-import { createContext, FC, useEffect, useMemo, useRef } from 'react';
+import { createContext, FC, useEffect, useMemo, useRef, PropsWithChildren } from 'react';
 
 const def = {
   mutableAttributes: {},
@@ -8,7 +8,7 @@ const def = {
 
 export const DragAndCropContext = createContext<any>(def);
 
-export const DNDContext: FC = (props) => {
+export const DNDContext: FC<PropsWithChildren> = (props) => {
   const ref = useRef(1);
 
   const genId = () => {
