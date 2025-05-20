@@ -76,9 +76,8 @@ const PreviewContainer = styled.div`
 
 export const NewItem = () => {
   const navigate = useNavigate();
-  const match = useMatch('/list/*');
   const onClick = () => {
-    navigate(`${match?.pathname}/template/new`);
+    navigate('/template/new');
   };
 
   return (

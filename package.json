@@ -1,12 +1,11 @@
 {
-  "name": "dnde-mail-editor",
-  "version": "0.0.0-alpha.5.hot-fix.1",
+  "name": "@marketingauto/dnde-mail-editor",
+  "version": "1.0.0-alpha.1",
   "description": "Drag and Drop Editor designed for mails",
   "main": "./module/main.js",
   "files": [
     "module/**/*"
   ],
-  "private": false,
   "dependencies": {
     "@ant-design/pro-components": "^2.8.7",
     "@reduxjs/toolkit": "^2.2.1",
@@ -37,11 +36,13 @@
     "web-vitals": "^3.5.2"
   },
   "scripts": {
-    "start": "BROWSER=none PUBLIC_URL=/maileditor react-scripts start",
-    "build": "export GENERATE_SOURCEMAP=false && react-scripts build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider BROWSER=none PUBLIC_URL=/maileditor react-scripts start",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider export GENERATE_SOURCEMAP=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:module": "WEBPACK_PACKAGE=webpack-module  ./node_modules/webpack-module/bin/webpack.js && cp module-package.json module/package.json && cp index.d.ts module/index.d.ts && cp README.md module/README.md  && npm pack ./module/"
+    "build:module": "NODE_OPTIONS=--openssl-legacy-provider WEBPACK_PACKAGE=webpack-module  ./node_modules/webpack-module/bin/webpack.js && cp module-package.json module/package.json && cp index.d.ts module/index.d.ts && cp README.md module/README.md  && npm pack ./module/",
+    "publish:module": "npm run build:module && cd module && npm publish --access=restricted"
   },
   "eslintConfig": {
     "extends": [
@@ -62,21 +63,22 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/preset-typescript": "^7.15.0",
-    "@sendgrid/mail": "^7.4.6",
-    "@types/lodash": "^4.14.172",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@sendgrid/mail": "^7.7.0",
+    "@types/lodash": "^4.14.202",
     "@types/react-color": "^3.0.5",
-    "@types/react-router-dom": "^5.3.1",
-    "@types/styled-components": "^5.1.14",
-    "babel-loader-module": "npm:babel-loader@^8.2.3",
-    "css-loader-module": "npm:css-loader@^6.4.0",
-    "sass-loader-module": "npm:sass-loader@^12.2.0",
-    "style-loader-module": "npm:style-loader@^3.3.1",
-    "webpack-cli": "^4.9.1",
-    "webpack-module": "npm:webpack@^5.60.0"
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.34",
+    "babel-loader-module": "npm:babel-loader@^9.1.3",
+    "css-loader-module": "npm:css-loader@^6.10.0",
+    "file-loader": "^6.2.0",
+    "sass-loader-module": "npm:sass-loader@^14.1.0",
+    "style-loader-module": "npm:style-loader@^3.3.4",
+    "webpack-cli": "^5.1.4",
+    "webpack-module": "npm:webpack@^5.90.3"
   },
   "bin": {
     "webpackmodule": "./node_modules/webpack-module/bin/webpack.js"
@@ -86,5 +88,8 @@
   "bugs": {
     "url": "https://github.com/aghontpi/dnde/issues"
   },
-  "homepage": "https://github.com/aghontpi/dnde"
+  "homepage": "https://github.com/aghontpi/dnde",
+  "publishConfig": {
+  "registry": "https://registry.npmjs.org/"
+  }
 }

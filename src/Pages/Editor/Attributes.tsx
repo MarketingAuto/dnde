@@ -59,14 +59,16 @@ const Title = ({ title }: { title: string }) => {
 };
 
 export const Attributes = () => {
+  console.log('Attributes component rendered');
   const { active } = useHtmlWrapper();
   const [isColumn, setIsColumn] = useState(false);
 
   useEffect(() => {
     if (active && active.classList && active.className.includes('mj-column')) {
       setIsColumn(true);
+    } else {
+      setIsColumn(false);
     }
-    isColumn && setIsColumn(false);
   }, [active]);
 
   return (
@@ -82,6 +84,7 @@ export const Attributes = () => {
       <TabPane tab={<Title title="layout" />} key="2">
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <div className={css.columns}>
+            <div>Test Content</div>
             <ColumnSelector />
           </div>
         </Scrollbars>
@@ -110,7 +113,6 @@ export const Attributes = () => {
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <SideBarDefaultLayout>
             <SideBarDefaultTitle title="Custom css" />
-
             <div className="props-container">
               <CustomCss />
             </div>

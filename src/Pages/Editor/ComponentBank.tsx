@@ -12,6 +12,7 @@ import { Divider } from '../../Components/Divider';
 import { Section } from '../../Components/Section';
 import { Social } from '../../Components/Social';
 import { SectionV2 } from '../../Components/SectionV2';
+import { TextBox } from '../../Components/TextBox';
 
 const { Panel } = Collapse;
 
@@ -26,6 +27,7 @@ export const ComponentBank = () => {
         <SectionV2 />
         <Button />
         <Text />
+        <TextBox />
         <Image />
         <Spacer />
         <Divider />
