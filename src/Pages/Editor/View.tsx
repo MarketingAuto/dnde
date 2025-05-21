@@ -17,6 +17,7 @@ import { UndoRedo } from '../../Components/UndoRedo';
 import _ from 'lodash';
 import { UNDOREDO } from '../../Utils/undoRedo';
 import { logger } from '../../Utils/logger';
+import React from 'react';
 
 interface ViewProps {
   showUndoRedo?: boolean;
@@ -128,5 +129,18 @@ export const View = forwardRef((props: ViewProps, ref) => {
 });
 
 const MjmlProcessor = memo(({ mjml, isColumn }: { mjml: any; isColumn: boolean }) => {
-  return mjml && htmlProcessor(mjml2html(mjml).html);
+  if (!mjml) return null;
+  
+  const { html } = mjml2html(mjml);
+  const processedHtml = htmlProcessor(html);
+  
+  // If the processed HTML is a string, wrap it in a div
+  if (typeof processedHtml === 'string') {
+    return <div key="mjml-content" dangerouslySetInnerHTML={{ __html: processedHtml }} />;
+  }
+  
+  // If it's already a React element, ensure it has a key
+  return React.isValidElement(processedHtml) 
+    ? React.cloneElement(processedHtml, { key: 'mjml-content' })
+    : <div key="mjml-content">{processedHtml}</div>;
 });

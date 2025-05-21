@@ -15,7 +15,7 @@ const List = () => {
           <Col span={24}>
             <Row align="middle" justify="center">
               <Col>
-                <span className="title">Dnde</span>
+                <span className="title">Cone Editor</span>
               </Col>
             </Row>
           </Col>
@@ -37,7 +37,7 @@ const List = () => {
                 </span>
                 <br />
 
-                <a target="_blank" href="https://github.com/aghontpi/dnde">
+                <a target="_blank" href="https://github.com/MarketingAuto/dnde">
                   <span>
                     Check it on Github <GithubFilled style={{ position: 'relative', top: '4px', fontSize: '32px' }} />
                   </span>
@@ -52,7 +52,7 @@ const List = () => {
             <span className="title">Choose a template and get started.</span>
           </Col>
           <Col span={16}>
-            <span className="subtitle">All templates are redesigned in dnde, using original mail as reference.</span>
+            <span className="subtitle">All templates are redesigned in cone, using original mail as reference.</span>
           </Col>
         </Row>
 

@@ -28,8 +28,7 @@ import { LineHeight } from '../../Components/Mods/LineHeight';
 import { BodyAttributes, SideBarDefaultLayout, SideBarDefaultTitle } from '../../Components/BodyAttributes';
 import { CustomCss } from '../../Components/Mods/CustomCss';
 import { AddCustomFonts } from '../../Components/Mods/AddCustomFonts';
-
-const { TabPane } = Tabs;
+import Name from '../../Components/Mods/Name';
 
 const CustomTabs = styled(Tabs)`
   .ant-tabs-content {
@@ -40,6 +39,10 @@ const CustomTabs = styled(Tabs)`
   }
   .ant-tabs-tabpane {
     padding-right: 0px !important;
+    height: 100%;
+  }
+  .ant-tabs-content-holder {
+    height: 100%;
   }
 `;
 
@@ -59,7 +62,6 @@ const Title = ({ title }: { title: string }) => {
 };
 
 export const Attributes = () => {
-  console.log('Attributes component rendered');
   const { active } = useHtmlWrapper();
   const [isColumn, setIsColumn] = useState(false);
 
@@ -71,35 +73,41 @@ export const Attributes = () => {
     }
   }, [active]);
 
-  return (
-    <CustomTabs
-      tabPosition="right"
-      defaultActiveKey="2"
-      style={{ height: '100%' }}
-      destroyInactiveTabPane={true}
-      title={'Attributes'}
-      size="small"
-      tabBarGutter={1}
-    >
-      <TabPane tab={<Title title="layout" />} key="2">
+  const items = [
+    {
+      key: '2',
+      label: <Title title="layout" />,
+      children: (
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <div className={css.columns}>
             <div>Test Content</div>
             <ColumnSelector />
           </div>
         </Scrollbars>
-      </TabPane>
-      <TabPane tab={<Title title="layout config" />} key="3">
+      ),
+    },
+    {
+      key: '3',
+      label: <Title title="layout config" />,
+      children: (
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <ColumnAttributes />
         </Scrollbars>
-      </TabPane>
-      <TabPane tab={<Title title="body config" />} key="4">
+      ),
+    },
+    {
+      key: '4',
+      label: <Title title="body config" />,
+      children: (
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <BodyAttributes />
         </Scrollbars>
-      </TabPane>
-      <TabPane tab={<Title title="fonts config" />} key="5">
+      ),
+    },
+    {
+      key: '5',
+      label: <Title title="fonts config" />,
+      children: (
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <SideBarDefaultLayout>
             <SideBarDefaultTitle title="Fonts" />
@@ -108,8 +116,12 @@ export const Attributes = () => {
             </div>
           </SideBarDefaultLayout>
         </Scrollbars>
-      </TabPane>
-      <TabPane tab={<Title title="custom css" />} key="6">
+      ),
+    },
+    {
+      key: '6',
+      label: <Title title="custom css" />,
+      children: (
         <Scrollbars style={{ height: '100%' }} autoHide={true}>
           <SideBarDefaultLayout>
             <SideBarDefaultTitle title="Custom css" />
@@ -118,8 +130,20 @@ export const Attributes = () => {
             </div>
           </SideBarDefaultLayout>
         </Scrollbars>
-      </TabPane>
-    </CustomTabs>
+      ),
+    },
+  ];
+
+  return (
+    <CustomTabs
+      tabPosition="right"
+      defaultActiveKey="2"
+      style={{ height: '100%' }}
+      destroyOnHidden={false}
+      size="small"
+      tabBarGutter={1}
+      items={items}
+    />
   );
 };
 
@@ -161,7 +185,7 @@ export const OnlyAttributesDrawer = () => {
 
   return init ? (
     <Drawer
-      destroyOnClose={true}
+      destroyOnHidden={true}
       width={'100%'}
       getContainer={false}
       title={
@@ -171,11 +195,13 @@ export const OnlyAttributesDrawer = () => {
       }
       style={{ position: 'absolute', height: '100%' }}
       onClose={onClose}
-      visible={visible}
+      open={visible}
       maskClosable={false}
       mask={false}
-      bodyStyle={{
-        padding: '8px 0px',
+      styles={{
+        body: {
+          padding: '8px 0px',
+        }
       }}
     >
       <Scrollbars style={{ height: '100%' }} autoHide={true}>
@@ -209,6 +235,7 @@ export const OnlyAttributesDrawer = () => {
           <BorderRadius />
           <Link />
           <Img />
+          <Name />
         </div>
       </Scrollbars>
     </Drawer>

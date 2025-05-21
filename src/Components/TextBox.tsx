@@ -6,14 +6,34 @@ import { UiWrapper } from './UiWrapper';
 
 export type DragEvent = SyntheticEvent & { dataTransfer: DataTransfer };
 
-// prettier-ignore
-const properties = ['align', 'background-color', 'border', 'border-bottom', 'border-left', 'border-radius', 'border-right', 'border-top', 'color', 'container-background-color', 'css-class', 'font-family', 'font-size', 'font-style', 'font-weight', 'height', 'inner-padding', 'letter-spacing', 'line-height', 'padding', 'padding-bottom', 'padding-left', 'padding-right', 'padding-top', 'text-align', 'text-decoration', 'text-transform', 'vertical-align', 'width'];
+const properties = [
+  'type', 'placeholder', 'value', 'name', 'required', 'disabled',
+  'readonly', 'maxlength', 'minlength', 'pattern', 'css-class',
+  'font-size', 'font-family', 'color', 'width', 'height',
+  'border', 'border-radius', 'padding'
+];
 
-// prettier-ignore
-const properties_with_default_values = {"align": "left", "background-color": "#ffffff", "border": "1px solid #cccccc", "border-bottom": "", "border-left": "", "border-radius": "3px", "border-right": "", "border-top": "", "color": "#000000", "container-background-color": "", "css-class": "", "font-family": "Ubuntu, Helvetica, Arial, sans-serif", "font-size": "13px", "font-style": "", "font-weight": "normal", "height": "", "inner-padding": "10px 25px", "letter-spacing": "", "line-height": "120%", "padding": "10px 25px", "padding-bottom": "", "padding-left": "", "padding-right": "", "padding-top": "", "text-align": "left", "text-decoration": "none", "text-transform": "none", "vertical-align": "middle", "width": ""}
-
-// prettier-ignore
-const assigned_default_values = {"align": "left", "background-color": "#ffffff", "border": "1px solid #cccccc", "border-radius": "3px", "color": "#000000", "font-family": "Ubuntu, Helvetica, Arial, sans-serif", "font-size": "13px", "font-weight": "normal", "inner-padding": "10px 25px", "line-height": "120%", "padding": "10px 25px", "text-align": "left", "text-decoration": "none", "text-transform": "none", "vertical-align": "middle"}
+const properties_with_default_values = {
+  type: 'text',
+  placeholder: 'Enter your text here',
+  value: '',
+  name: '',
+  required: false,
+  disabled: false,
+  readonly: false,
+  maxlength: '',
+  minlength: '',
+  pattern: '',
+  'css-class': 'mjml-tag identifier-mj-text',
+  'font-size': '14px',
+  'font-family': 'Ubuntu, Helvetica, Arial, sans-serif',
+  color: '#000000',
+  width: '100%',
+  height: '',
+  border: '1px solid #ccc',
+  'border-radius': '4px',
+  padding: '8px'
+};
 
 export const TextBox = () => {
   const { mjmlJson, setMjmlJson } = useEditor();
@@ -21,11 +41,13 @@ export const TextBox = () => {
   const config = {
     tagName: 'mj-text',
     attributes: {
-      ...assigned_default_values,
+      ...properties_with_default_values,
       'css-class': 'mjml-tag identifier-mj-text',
     },
-    children: [],
-    content: 'Enter your text here',
+    content: `<input 
+      type="text"
+      name="text_input"
+    />`,
     mutableProperties: properties,
     mutalbePropertiesWithDefaultValues: properties_with_default_values,
   };
@@ -44,4 +66,4 @@ export const TextBox = () => {
       <UiWrapper background="textbox" label="Text Box" />
     </div>
   );
-}; 
+};

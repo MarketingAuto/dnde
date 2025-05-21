@@ -6,7 +6,7 @@ import { HEADSTYLE } from '../Components/Mods/HeadStyle';
 export const EditorContext = createContext<any>(null);
 
 export const PageHeaderItems = [
-  { tagName: 'mj-title', content: 'dnde-editor' },
+  { tagName: 'mj-title', content: 'Cone Editor' },
   { tagName: 'mj-style', content: HEADSTYLE },
   { tagName: 'mj-attributes', children: [{ tagName: 'mj-text', attributes: { 'font-family': 'Arial' } }] },
   ...FONTS_CONFIG.map((font) => {

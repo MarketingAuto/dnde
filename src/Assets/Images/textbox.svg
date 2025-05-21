@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Input field background -->
+  <rect x="8" y="20" width="48" height="24" rx="4" stroke="#222" stroke-width="2" fill="none"/>
+  
+  <!-- Large 'A' to represent text -->
+  <text x="22" y="38" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#222">A</text>
+  
+  <!-- Blinking cursor -->
+  <line x1="37" y1="24" x2="37" y2="40" stroke="#222" stroke-width="2">
+    <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+  </line>
+</svg> 

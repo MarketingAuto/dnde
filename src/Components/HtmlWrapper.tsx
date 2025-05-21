@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { cloneElement, createElement, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { cloneElement, createElement, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCkeditor } from '../Hooks/Ckeditor.hook';
 import { useCustomEditorPosition, useCustomEditorStatus } from '../Hooks/CustomEditor.hook';
 import { useEditor } from '../Hooks/Editor.hook';
@@ -234,7 +234,15 @@ export const HtmlWrapper = memo(({ uniqueKey, originalNode }: HtmlWrapperProps) 
         position: 'relative',
       },
     },
-    originalNode.children ? [...originalNode.children, ItemName, moveUpDown] : null
+    originalNode.children ? [
+      ...originalNode.children.map((child: any, index: number) => 
+        React.isValidElement(child) 
+          ? React.cloneElement(child, { key: `${uniqueKey}-child-${index}` })
+          : child
+      ),
+      React.cloneElement(ItemName, { key: `${uniqueKey}-item-name` }),
+      moveUpDown && React.cloneElement(moveUpDown, { key: `${uniqueKey}-move-up-down` })
+    ].filter(Boolean) : null
   );
 
   return Element;

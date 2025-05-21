@@ -118,7 +118,7 @@ const InlineEditor = () => {
     >
       <Select
         size="small"
-        dropdownStyle={{ minWidth: '18px' }}
+        styles={{ popup: { root: { minWidth: '18px' } } }}
         defaultValue={2}
         style={{ fontSize: '12px' }}
         onChange={(value: any) => {
@@ -127,6 +127,7 @@ const InlineEditor = () => {
       >
         {Array.from(Array(7).keys()).map((i) => (
           <Select.Option
+            key={`size-${i + 1}`}
             onMouseDown={ResetEventBehaviour}
             onFocus={ResetEventBehaviour}
             style={{ fontSize: '12px' }}
@@ -141,7 +142,7 @@ const InlineEditor = () => {
       <Select
         size="small"
         defaultValue={'Ubuntu'}
-        dropdownStyle={{ minWidth: '140px' }}
+        styles={{ popup: { root: { minWidth: '140px' } } }}
         style={{ fontSize: '12px' }}
         onChange={(value: any) => {
           InlineEditorActions(null, 'fontFamily', value);
@@ -150,6 +151,7 @@ const InlineEditor = () => {
       >
         {fontlist.map((font) => (
           <Select.Option
+            key={`font-${font}`}
             onMouseDown={ResetEventBehaviour}
             onFocus={ResetEventBehaviour}
             style={{ fontSize: '12px' }}
@@ -163,7 +165,7 @@ const InlineEditor = () => {
       </Select>
 
       <Popover
-        overlayClassName="inline-editor-popover-color-picker"
+        className="inline-editor-popover-color-picker"
         trigger="click"
         placement="bottom"
         content={
@@ -174,12 +176,12 @@ const InlineEditor = () => {
             mouseDown={false}
           />
         }
-        destroyTooltipOnHide={true}
+        destroyOnHidden={true}
       >
         <Button icon={<FontColorsOutlined />} style={{ fontSize: '12px' }} size="small"></Button>
       </Popover>
       <Popover
-        overlayClassName="inline-editor-popover-color-picker"
+        className="inline-editor-popover-color-picker"
         trigger="click"
         placement="bottom"
         content={
@@ -190,7 +192,7 @@ const InlineEditor = () => {
             mouseDown={false}
           />
         }
-        destroyTooltipOnHide={true}
+        destroyOnHidden={true}
       >
         <Button icon={<BgColorsOutlined />} style={{ fontSize: '12px' }} size="small"></Button>
       </Popover>
@@ -236,7 +238,7 @@ const LinkItem = ({ setLinkCallback }: LinkItemProps) => {
 
   return (
     <Popover
-      visible={active}
+      open={active}
       content={
         <div style={{ display: 'flex', gap: '8px' }}>
           <Input

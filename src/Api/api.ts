@@ -37,7 +37,7 @@ interface FailureResponse {
 }
 
 export const DndeApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API }),
+  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
     getTemplates: builder.query<ListTemplateResponse, void>({
       query: () => `templates/`,

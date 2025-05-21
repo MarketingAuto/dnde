@@ -8,7 +8,7 @@ import { StoreProvider } from './Store/store';
 const App: React.FC = () => {
   return (
     <StoreProvider>
-      <HashRouter>
+      <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="my-app">
           <Pages />
         </div>

@@ -95,7 +95,7 @@ const AddCustomFonts = () => {
         </Col>
         <Col span={24} style={{ textAlign: 'center' }}>
           <Popover
-            visible={addFontActive}
+            open={addFontActive}
             trigger="click"
             placement="bottom"
             content={<GetFontsValue addCustomFontClick={handleAddFont} popOverCallBacK={setAddFontActive} />}

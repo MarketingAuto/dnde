@@ -1,9 +1,9 @@
 {
-  "short_name": "dnde - email editor",
+  "short_name": "cone - email editor",
   "name": "A drag & drop editor built for mails",
   "icons": [
     {
-      "src": "dnde-logo.svg",
+      "src": "cone-logo.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     },

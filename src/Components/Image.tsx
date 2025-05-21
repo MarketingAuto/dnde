@@ -24,7 +24,7 @@ export const Image = () => {
       'css-class': 'mjml-tag identifier-mj-image',
       width: 'auto',
       padding: '0px 8px',
-      src: 'https://dev.bluepie.in/dnde.png',
+      src: 'https://storage.googleapis.com/resources.boomcrm.com/cone-banner.png',
     },
     children: [],
     mutableProperties: properties,

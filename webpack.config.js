@@ -1,10 +1,14 @@
-const path = require('path');
-const sassloader = require('sass-loader-module');
-const styleloader = require('style-loader-module');
-const cssloader = require('css-loader-module');
-const babelloader = require('babel-loader-module');
+import path from 'path';
+import sassloader from 'sass-loader-module';
+import styleloader from 'style-loader-module';
+import cssloader from 'css-loader-module';
+import babelloader from 'babel-loader-module';
+import { fileURLToPath } from 'url';
 
-module.exports = (env, argv) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default (env, argv) => {
   return {
     mode: 'production',
     entry: [/*'./node_modules/antd/dist/antd.css',*/ './src/Package.ts'],
@@ -39,7 +43,10 @@ module.exports = (env, argv) => {
             {
               loader: 'sass-loader-module',
               options: {
-                implementation: require('sass'),
+                sassOptions: {
+                  outputStyle: 'compressed',
+                },
+                sourceMap: true,
               },
             },
           ],

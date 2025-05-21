@@ -126,7 +126,7 @@ const EditPage = () => {
           <Layout style={{ height: '100%' }}>
             <PageHeader
               onBack={() => window.history.back()}
-              title="dnde"
+              title="Cone Editor"
               extra={[
                 <Button key="2" onClick={copyHTMLAsClipBoard} style={{ marginRight: 8 }}>
                   Copy as html

@@ -48,14 +48,20 @@ export const Preview = ({ visible, visibleChange, inframeContent }: PreviewProps
 
   return (
     <FullscreenModal
-      visible={visible}
+      open={visible}
       onCancel={() => visibleChange(false)}
       onOk={() => visibleChange(false)}
       width={'unset'}
       style={{ top: '0px', maxWidth: 'unset', paddingBottom: '0px', height: '100%' }}
-      bodyStyle={{ height: '100%' }}
-      maskStyle={{ height: '100%' }}
-      destroyOnClose={true}
+      styles={{
+        body: { height: '100%' },
+        mask: { height: '100%' }
+      }}
+      modalRender={(node) => (
+        <div key={visible ? 'open' : 'closed'}>
+          {node}
+        </div>
+      )}
       footer={null}
     >
       <PreviewMode>

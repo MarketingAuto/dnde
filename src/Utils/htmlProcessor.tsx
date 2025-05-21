@@ -23,12 +23,17 @@ export const htmlProcessor = (html: string): ReactNode => {
   return converter(doc as unknown as HTMLElement, 1);
 };
 
-const converter = (element: HTMLElement, key = 0) => {
+const converter = (element: HTMLElement, key: number | string = 0) => {
   if (element === undefined) {
     return;
   }
 
   let nodeName = element.nodeName.toLowerCase();
+
+  // Convert head and html tags to div to prevent invalid nesting
+  if (nodeName === 'head' || nodeName === 'html' || nodeName === 'body' || nodeName === '#document') {
+    nodeName = 'div';
+  }
 
   // meta, script, style, ..etc, tags don't have children,
   if (
@@ -43,7 +48,7 @@ const converter = (element: HTMLElement, key = 0) => {
       let el = element as HTMLMetaElement;
       return React.createElement(
         nodeName,
-        { httpEquiv: el.httpEquiv, content: el.content, key: nodeName + key++ },
+        { httpEquiv: el.httpEquiv, content: el.content, key: `meta-${key}` },
         null
       );
     }
@@ -59,17 +64,21 @@ const converter = (element: HTMLElement, key = 0) => {
           href: el.href,
           rel: el.rel,
           type,
-          key: nodeName + key++,
+          key: `link-${key}`,
         },
         null
       );
     }
     if (nodeName === 'br') {
-      return React.createElement(nodeName, { key: nodeName + key++ }, null);
+      return React.createElement(nodeName, { key: `br-${key}` }, null);
+    }
+    if (nodeName === 'title') {
+      return React.createElement(nodeName, { key: `title-${key}` }, element.textContent);
     }
 
     return React.createElement(nodeName, {
-      dangerouslySetInnerHTML: { __html: element.innerHTML, key: nodeName + key++ },
+      dangerouslySetInnerHTML: { __html: element.innerHTML },
+      key: `${nodeName}-${key}`,
     });
   }
 
@@ -91,21 +100,64 @@ const converter = (element: HTMLElement, key = 0) => {
     attributes[reactName] = value;
   }
 
-  attributes['key'] = key++;
+  attributes['key'] = `${nodeName}-${key}`;
 
   let children: ReactNode[] = [];
 
   if (element.className && element.className.includes('mj-text')) {
-    // if element is mj-text, we edit it with customInlineEditor by making div 'contentEditable' true.
-    //  do not handle children in react.
+    const original = {
+      nodeName,
+      props: { ...attributes },
+      children: [createElement('span', { key: `mj-text-span-${key}`, dangerouslySetInnerHTML: { __html: element.innerHTML } })],
+    };
+
+    return <HtmlWrapper uniqueKey={`mj-text-wrapper-${key}`} originalNode={original} />;
+  }
+
+  // Add handling for mj-raw content
+  if (element.className && element.className.includes('mj-raw')) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = element.innerHTML;
+    
+    const children = Array.from(tempDiv.childNodes).map((child, index) => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        const childElement = child as HTMLElement;
+        const childNodeName = childElement.nodeName.toLowerCase();
+        const childAttributes: { [key: string]: any } = {};
+        
+        Array.from(childElement.attributes).forEach(attr => {
+          if (attr.name === 'style') {
+            childAttributes.style = convertStyleStringToObject(attr.value);
+          } else {
+            childAttributes[attr.name] = attr.value;
+          }
+        });
+
+        // Special handling for input elements
+        if (childNodeName === 'input') {
+          return React.createElement('input', {
+            ...childAttributes,
+            key: `raw-input-${key}-${index}`
+          });
+        }
+
+        // For other elements
+        return React.createElement(childNodeName, {
+          ...childAttributes,
+          key: `raw-element-${key}-${index}`,
+          dangerouslySetInnerHTML: { __html: childElement.innerHTML }
+        });
+      }
+      return null;
+    }).filter(Boolean);
 
     const original = {
       nodeName,
       props: { ...attributes },
-      children: [createElement('span', { dangerouslySetInnerHTML: { __html: element.innerHTML } })],
+      children
     };
 
-    return <HtmlWrapper uniqueKey={key++} originalNode={original} />;
+    return <HtmlWrapper uniqueKey={`mj-raw-wrapper-${key}`} originalNode={original} />;
   }
 
   for (let i = 0; i < element.childNodes.length; i++) {
@@ -113,11 +165,9 @@ const converter = (element: HTMLElement, key = 0) => {
 
     if (child['nodeName'] === '#text') {
       if (child.textContent) {
-        // remove all new line characters & trim, problem with user's text content
-        //   is handled before this section in 'mj-text'
         const content = child.textContent.replaceAll('\n', '').trim();
         if (content) {
-          children.push(content);
+          children.push(React.createElement('span', { key: `text-${key}-${i}` }, content));
         }
       }
       continue;
@@ -128,28 +178,22 @@ const converter = (element: HTMLElement, key = 0) => {
     }
 
     if (nodeName !== 'script' && nodeName !== 'style') {
-      children.push(converter(child as HTMLElement, key++));
+      const childElement = converter(child as HTMLElement, `${key}-${i}`);
+      if (childElement) {
+        children.push(childElement);
+      }
     }
   }
+
   if (element.classList && element.classList.contains('mjml-tag')) {
     DEBUG && logger.info(`identified mjml-tag for : ${nodeName}, with attributes: ${JSON.stringify(attributes)}`);
-    // const ReactNode = React.createElement(nodeName, { key: key++, ...attributes }, children);
     const original = { nodeName, props: { ...attributes }, children };
 
-    return <HtmlWrapper uniqueKey={key++} originalNode={original} />;
-    // return <HtmlWrapper children={ReactNode} key={key++} originalNode={original} />;
+    return <HtmlWrapper key={`mjml-tag-${key}`} uniqueKey={`mjml-tag-${key}`} originalNode={original} />;
   }
 
-  // process placehodler item differently, if mj-text is placer, the wrapper is td,
-  //    td does not obey border properties, so outline can be used.
   if (element.classList && element.classList.contains('placeitem-placeholder')) {
-    return <WrapWithOutline id={key++} nodeName={nodeName} props={{ ...attributes }} children={children} />;
-  }
-
-  // if root document, create it with div,
-  // todo: rnd if this document can be abstracted from the main document,
-  if (nodeName === '#document') {
-    nodeName = 'div';
+    return <WrapWithOutline key={`placeholder-${key}`} id={Number(key)} nodeName={nodeName} props={{ ...attributes }} children={children} />;
   }
 
   // remove href in link
@@ -160,12 +204,15 @@ const converter = (element: HTMLElement, key = 0) => {
 
   // img tag should not have child param passed to it
   if (nodeName === 'img') {
-    return React.createElement(nodeName, { key: key++, ...attributes }, null);
+    return React.createElement(nodeName, { key: `img-${key}`, ...attributes }, null);
   } else if (element.nodeType === 3) {
-    return React.createElement(nodeName, { ...attributes, key: key++ }, element.textContent);
+    return React.createElement(nodeName, { ...attributes, key: `text-node-${key}` }, element.textContent);
   }
 
-  return React.createElement(nodeName, attributes, children);
+  // Ensure all elements have a key
+  const elementKey = attributes.key || `${nodeName}-${key}`;
+  delete attributes.key; // Remove the key from attributes to avoid duplicate
+  return React.createElement(nodeName, { ...attributes, key: elementKey }, children);
 };
 
 const convertStyleStringToObject = (style: string) => {
