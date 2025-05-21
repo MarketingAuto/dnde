@@ -25,11 +25,14 @@
 ## Installation
 
 ```bash
+#Login to our private npmjs
+npm login
+
 # Yarn
-yarn add dnd-email-editor
+yarn add @marketingauto/dnde-email-editor
 
 # NPM
-npm install dnd-email-editor
+npm install @marketingauto/dnde-email-editor
 
 ```
 

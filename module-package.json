@@ -1,6 +1,6 @@
 {
   "name": "@marketingauto/dnde-mail-editor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Drag and Drop Editor designed for mails",
   "main": "./main.js",
   "files": ["**/*"],
@@ -11,12 +11,12 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {},
-  "author": "https://github.com/aghontpi",
+  "author": "https://github.com/MarketingAuto",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/aghontpi/dnde/issues"
+    "url": "https://github.com/MarketingAuto/dnde/issues"
   },
-  "homepage": "https://github.com/aghontpi/dnde",
+  "homepage": "https://github.com/MarketingAuto/dnde",
   "keywords": [
     "dnd-email-editor",
     "react-component",

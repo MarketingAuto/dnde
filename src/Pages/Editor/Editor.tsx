@@ -12,6 +12,7 @@ import _ from 'lodash';
 import { UNDOREDO } from '../../Utils/undoRedo';
 import { useDragAndDropUniqueId } from '../../Hooks/Drag.hook';
 import { EMPTY_EDITOR_STATE } from '../../Context/Editor.context';
+import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
 
 export interface EmailEditorProps {
   preview?: boolean;
@@ -22,6 +23,7 @@ export const Editor = forwardRef((props: EmailEditorProps, ref) => {
   const viewRef = useRef<any>(null);
   const { mjmlJson, setMjmlJson } = useEditor();
   const [preview, setPreview] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { getId } = useDragAndDropUniqueId();
 
   useImperativeHandle(ref, () => {
@@ -97,7 +99,7 @@ export const Editor = forwardRef((props: EmailEditorProps, ref) => {
   };
 
   return (
-    <div className={css.editor}>
+    <div className={`${css.editor} ${isFullscreen ? css.fullscreen : ''}`}>
       <div className={css.bank}>
         <ComponentBank />
       </div>
@@ -110,13 +112,21 @@ export const Editor = forwardRef((props: EmailEditorProps, ref) => {
               visibleChange={(flag) => setPreview(flag)}
               inframeContent={preview ? mjml2html(mjmlJson).html : ''}
             />
-            <Button
-              style={{ position: 'absolute', top: '8px', right: '16px', zIndex: 300 }}
-              key="3"
-              onClick={() => setPreview(true)}
-            >
-              Preview
-            </Button>
+            <div style={{ position: 'absolute', top: '8px', right: '16px', zIndex: 300, display: 'flex', gap: '8px' }}>
+              <Button
+                key="3"
+                onClick={() => setPreview(true)}
+              >
+                Preview
+              </Button>
+              <Button
+                key="4"
+                onClick={() => setIsFullscreen(!isFullscreen)}
+                icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
+              >
+                {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+              </Button>
+            </div>
           </>
         )}
         <View ref={viewRef} showUndoRedo={props.showUndoRedo} />
