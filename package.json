@@ -1,5 +1,5 @@
 {
-  "name": "@marketingauto/dnde-mail-editor",
+  "name": "@marketingauto/cone-ed",
   "version": "1.0.3",
   "description": "Drag and Drop Editor designed for mails",
   "main": "./module/main.js",
@@ -42,7 +42,12 @@
     "preview": "vite preview",
     "test": "vitest",
     "build:module": "WEBPACK_PACKAGE=webpack-module ./node_modules/webpack-module/bin/webpack.js && cp module-package.json module/package.json && cp index.d.ts module/index.d.ts && cp README.md module/README.md && npm pack ./module/",
-    "publish:module": "npm run build:module && cd module && npm publish --access=restricted"
+    "publish:module": "npm run build:module && cd module && npm publish --access=restricted",
+    "version": "node scripts/version.js",
+    "release": "npm run version && npm run publish:module",
+    "release:patch": "npm run version -- --release-as patch",
+    "release:minor": "npm run version -- --release-as minor",
+    "release:major": "npm run version -- --release-as major"
   },
   "eslintConfig": {
     "extends": [
@@ -83,7 +88,9 @@
     "vite": "^5.1.4",
     "vitest": "^1.3.1",
     "webpack-cli": "^5.1.4",
-    "webpack-module": "npm:webpack@^5.90.3"
+    "webpack-module": "npm:webpack@^5.90.3",
+    "standard-version": "^9.5.0",
+    "npm-check-updates": "^16.14.19"
   },
   "bin": {
     "webpackmodule": "./node_modules/webpack-module/bin/webpack.js"
@@ -91,9 +98,9 @@
   "author": "https://github.com/aghontpi",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/aghontpi/dnde/issues"
+    "url": "https://github.com/MarketingAuto/cone-ed/issues"
   },
-  "homepage": "https://github.com/aghontpi/dnde",
+  "homepage": "https://github.com/MarketingAuto/cone-ed",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }

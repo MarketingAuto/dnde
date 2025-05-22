@@ -1,6 +1,6 @@
 {
-  "name": "@marketingauto/dnde-mail-editor",
-  "version": "1.0.5",
+  "name": "@marketingauto/cone-ed",
+  "version": "1.0.6",
   "description": "Drag and Drop Editor designed for mails",
   "main": "./main.js",
   "files": ["**/*"],
@@ -14,9 +14,9 @@
   "author": "https://github.com/MarketingAuto",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/MarketingAuto/dnde/issues"
+    "url": "https://github.com/MarketingAuto/cone-ed/issues"
   },
-  "homepage": "https://github.com/MarketingAuto/dnde",
+  "homepage": "https://github.com/MarketingAuto/cone-ed",
   "keywords": [
     "dnd-email-editor",
     "react-component",

@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { FC, PropsWithChildren } from 'react';
-import { DndeApi } from '../Api/api';
+import { ConeApi } from '../Api/api';
 import { templateListReducer } from './list';
 
 import { Provider } from 'react-redux';
 
 const store = configureStore({
-  reducer: { [DndeApi.reducerPath]: DndeApi.reducer, templateList: templateListReducer },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(DndeApi.middleware),
+  reducer: { [ConeApi.reducerPath]: ConeApi.reducer, templateList: templateListReducer },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(ConeApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

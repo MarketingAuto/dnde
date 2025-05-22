@@ -36,7 +36,7 @@ interface FailureResponse {
   error: string;
 }
 
-export const DndeApi = createApi({
+export const ConeApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
   endpoints: (builder) => ({
     getTemplates: builder.query<ListTemplateResponse, void>({
@@ -57,4 +57,4 @@ export const DndeApi = createApi({
   }),
 });
 
-export const { useGetTemplatesQuery, useLazyGetTemplateQuery, useSendMailMutation } = DndeApi;
+export const { useGetTemplatesQuery, useLazyGetTemplateQuery, useSendMailMutation } = ConeApi;

@@ -26,3 +26,5 @@ sendgrid.env
 # npm package dependencies
 
 /module/
+
+marketingauto-*.tgz

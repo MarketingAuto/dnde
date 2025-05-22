@@ -1,25 +1,25 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aghontpi/dnde/master/public/dnde-banner.svg"/>
+  <img src="https://raw.githubusercontent.com/MarketingAuto/cone-ed/master/public/cone-banner.svg"/>
   <br/>
   <br/>
   <i>Drag and Drop E-mail Editor</i>
   <br/>
   <br/>
-  <a href="https://github.com/aghontpi/dnde/releases"><img src="https://img.shields.io/github/v/release/aghontpi/dnde?include_prereleases&style=flat-square&label=github-release" alt="release"></a>
+  <a href="https://github.com/MarketingAuto/cone-ed/releases"><img src="https://img.shields.io/github/v/release/MarketingAuto/cone-ed?include_prereleases&style=flat-square&label=github-release" alt="release"></a>
   <a href="https://www.npmjs.com/package/dnd-email-editor"><img src="https://img.shields.io/npm/v/dnd-email-editor?style=flat-square" alt="npm"></a>
-  <a href="https://github.com/aghontpi/dnde/blob/master/LICENSE"><img src="https://img.shields.io/github/license/aghontpi/dnde?style=flat-square" alt="license"></a>
+  <a href="https://github.com/MarketingAuto/cone-ed/blob/master/LICENSE"><img src="https://img.shields.io/github/license/MarketingAuto/cone-ed?style=flat-square" alt="license"></a>
 </p>
 
-[license-badge]: https://img.shields.io/github/license/aghontpi/dnde?style=flat-square
-[license file]: https://github.com/aghontpi/dnde/blob/master/LICENSE
-[badge]: https://img.shields.io/github/v/release/aghontpi/dnde?include_prereleases&style=flat-square&label=github-release
-[release link]: https://github.com/aghontpi/dnde/releases
+[license-badge]: https://img.shields.io/github/license/MarketingAuto/cone-ed?style=flat-square
+[license file]: https://github.com/MarketingAuto/cone-ed/blob/master/LICENSE
+[badge]: https://img.shields.io/github/v/release/MarketingAuto/cone-ed?include_prereleases&style=flat-square&label=github-release
+[release link]: https://github.com/MarketingAuto/cone-ed/releases
 [npm badge]: https://img.shields.io/npm/v/dnd-email-editor?style=flat-square
 [npm link]: https://www.npmjs.com/package/dnd-email-editor
 
-<h2 align="center"> screens / live demo <a href="https://dnde.bluepie.in">here</a></h2>
+<h2 align="center"> screens / live demo <a href="https://cone-ed.bluepie.in">here</a></h2>
 <p align="center">
-<img src="https://raw.githubusercontent.com/aghontpi/dnde/master/Screenshots/previews(25-oct-2021).gif"  width="50%" />
+<img src="https://raw.githubusercontent.com/MarketingAuto/cone-ed/master/Screenshots/previews(25-oct-2021).gif"  width="50%" />
 </p>
 
 ## Installation
@@ -29,10 +29,10 @@
 npm login
 
 # Yarn
-yarn add @marketingauto/dnde-email-editor
+yarn add @marketingauto/cone-ed
 
 # NPM
-npm install @marketingauto/dnde-email-editor
+npm install @marketingauto/cone-ed
 
 ```
 
