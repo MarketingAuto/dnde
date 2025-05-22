@@ -1,0 +1,36 @@
+{
+  "name": "dnd-email-editor",
+  "version": "0.0.0-alpha.5.hot-fix.1",
+  "description": "Drag and Drop Editor designed for mails",
+  "main": "./main.js",
+  "files": ["**/*"],
+  "types": "./index.d.ts",
+  "private": false,
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "dependencies": {},
+  "author": "https://github.com/aghontpi",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/aghontpi/dnde/issues"
+  },
+  "homepage": "https://github.com/aghontpi/dnde",
+  "keywords": [
+    "dnd-email-editor",
+    "react-component",
+    "react-email-component",
+    "react-email-editor",
+    "email-editor",
+    "mail-editor",
+    "mail",
+    "react-email",
+    "email-template",
+    "editor",
+    "dnd",
+    "drag-and-drop",
+    "drag-n-drop",
+    "mjml"
+  ]
+}
