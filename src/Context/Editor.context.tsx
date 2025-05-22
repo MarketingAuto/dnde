@@ -8,7 +8,7 @@ export const EditorContext = createContext<any>(null);
 export const PageHeaderItems = [
   { tagName: 'mj-title', content: 'dnde-editor' },
   { tagName: 'mj-style', content: HEADSTYLE },
-  { tagName: 'mj-attributes', children: [{ tagName: 'mj-text', attributes: { 'font-family': 'Ubuntu' } }] },
+  { tagName: 'mj-attributes', children: [{ tagName: 'mj-text', attributes: { 'font-family': 'Arial' } }] },
   ...FONTS_CONFIG.map((font) => {
     return {
       tagName: 'mj-font',

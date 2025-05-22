@@ -1,5 +1,10 @@
 export const FONTS_CONFIG = [
   { name: 'Roboto', value: 'https://fonts.googleapis.com/css2?family=Roboto&display=swap' },
+];
+
+/*
+[
+  { name: 'Roboto', value: 'https://fonts.googleapis.com/css2?family=Roboto&display=swap' },
   { name: 'Festive', value: 'https://fonts.googleapis.com/css2?family=Festive&display=swap' },
   { name: 'Noto Sans Mono', value: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap' },
   { name: 'Open Sans', value: 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap' },
@@ -29,3 +34,4 @@ export const FONTS_CONFIG = [
   { name: 'Fira Sans', value: 'https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap' },
   { name: 'Ubuntu', value: 'https://fonts.googleapis.com/css2?family=Ubuntu&display=swap' },
 ];
+*/

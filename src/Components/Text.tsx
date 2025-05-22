@@ -2,7 +2,6 @@ import { SyntheticEvent } from 'react';
 import { useEditor } from '../Hooks/Editor.hook';
 import { dragStart } from '../Utils/dragStart';
 import { cleanMjmlJson } from '../Utils/mjmlProcessor';
-import { FONTS_CONFIG } from './Mods/FontConfig';
 import { UiWrapper } from './UiWrapper';
 
 export type DragEvent = SyntheticEvent & { dataTransfer: DataTransfer };

@@ -32,6 +32,7 @@ list = [
     'Quicksand',
     'Fira Sans',
 ]
+list = []
 
 print('export const FONTS_CONFIG = [ ')
 

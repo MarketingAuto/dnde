@@ -49,7 +49,8 @@ const updateFonts = (mjmlJson: any, fonts: any, setFonts: (arg: any) => void, se
         // update the overall fonts in the mail
         // uitlizing the fact that the path to attributes tag is always the same/static
         let mailFont = mjmlJson.children[0].children[2];
-        let toUpdate = 'Ubuntu,' + sortedFontList.join(',');
+        //let toUpdate = 'Ubuntu,' + sortedFontList.join(',');
+        let toUpdate = sortedFontList.join(',');
         // updating attributes tag in head section. the font-family for changing 'font-family' on the fly for text-tag
         if (
           mailFont &&
